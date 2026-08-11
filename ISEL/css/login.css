@@ -1,0 +1,411 @@
+/* ============================================================
+   LOGIN — SMKN 1 Katapang
+   Dark cinematic theme, synced with biodata.css (aurora nebula)
+   Blue → Violet → Magenta palette, multimedia icons
+   ============================================================ */
+
+:root{
+    --bg-1: #06070b;
+    --bg-2: #0d1220;
+    --muted: #b8c0cc;
+    --accent: #cfc7ff;
+    --accent-2: #66f0d6;
+    --glass: rgba(255,255,255,0.04);
+
+    /* Aurora blobs (mirror biodata & particle hue 200-300) */
+    --blob-a: rgba(102, 110, 255, 0.30);
+    --blob-b: rgba(155, 90, 255, 0.26);
+    --blob-c: rgba(255, 90, 200, 0.18);
+    --blob-d: rgba(102, 240, 214, 0.14);
+
+    --ease: cubic-bezier(.2, .95, .2, 1);
+}
+
+/* ---------- Reset ---------- */
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+html{scroll-behavior:smooth}
+
+body{
+    font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    color:#e9eef2;
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+    background-color:var(--bg-1);
+    overflow:hidden;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    position:relative;
+}
+
+/* ============================================================
+   ANIMATED AURORA BACKGROUND
+   ============================================================ */
+body::before{
+    content:"";
+    position:fixed;
+    inset:-20%;
+    z-index:-2;
+    pointer-events:none;
+    background:
+        radial-gradient(42% 36% at 18% 20%, var(--blob-a), transparent 62%),
+        radial-gradient(38% 30% at 84% 16%, var(--blob-b), transparent 62%),
+        radial-gradient(42% 36% at 76% 84%, var(--blob-c), transparent 62%),
+        radial-gradient(38% 30% at 20% 82%, var(--blob-d), transparent 62%);
+    filter:blur(6px);
+    animation:auroraDrift 22s var(--ease) infinite alternate;
+    will-change:transform;
+}
+@keyframes auroraDrift{
+    0%   {transform:translate3d(0,0,0) scale(1)}
+    50%  {transform:translate3d(3%,-2%,0) scale(1.07)}
+    100% {transform:translate3d(-3%,2%,0) scale(1.02)}
+}
+
+/* Film grain */
+body::after{
+    content:"";
+    position:fixed;
+    inset:0;
+    z-index:-1;
+    pointer-events:none;
+    opacity:.5;
+    mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.30'/%3E%3C/svg%3E");
+    animation:grainShift 1.2s steps(4) infinite;
+}
+@keyframes grainShift{
+    0%{transform:translate(0,0)}
+    25%{transform:translate(-2%,3%)}
+    50%{transform:translate(3%,-2%)}
+    75%{transform:translate(-3%,-3%)}
+    100%{transform:translate(2%,2%)}
+}
+
+/* Vignette */
+.vignette{
+    position:fixed;
+    inset:0;
+    z-index:1;
+    pointer-events:none;
+    background:radial-gradient(120% 120% at 50% 42%, transparent 55%, rgba(0,0,0,0.6) 100%);
+}
+
+/* ============================================================
+   FLOATING MULTIMEDIA ICONS
+   ============================================================ */
+.float-stage{position:fixed;inset:0;z-index:2;pointer-events:none;overflow:hidden}
+
+.float-icon{
+    position:absolute;
+    font-size:2.2rem;
+    opacity:.18;
+    filter:drop-shadow(0 0 12px rgba(140,120,255,0.5));
+    animation:floatIcon var(--dur) var(--ease) infinite alternate;
+}
+.fi-1{--dur:9s; top:12%; left:8%;  font-size:2.6rem}
+.fi-2{--dur:11s;top:22%; right:10%; font-size:2rem}
+.fi-3{--dur:8s; top:60%; left:6%;  font-size:2.9rem}
+.fi-4{--dur:12s;top:70%; right:8%; font-size:2.2rem}
+.fi-5{--dur:10s;top:45%; left:14%; font-size:1.8rem}
+.fi-6{--dur:13s;top:40%; right:16%;font-size:2.4rem}
+
+@keyframes floatIcon{
+    0%{transform:translateY(0) rotate(-6deg)}
+    100%{transform:translateY(-26px) rotate(8deg)}
+}
+
+/* Hanging polaroid photos */
+.polaroid{
+    position:absolute;
+    width:140px;
+    background:rgba(20,24,34,0.92);
+    border:1px solid rgba(207,199,255,0.3);
+    border-radius:12px;
+    padding:10px 10px 14px;
+    box-shadow:0 22px 46px rgba(0,0,0,0.55);
+    transform-origin:top center;
+    animation:swing var(--swing) ease-in-out infinite alternate;
+    opacity:.88;
+}
+.polaroid img{width:100%;height:88px;object-fit:cover;border-radius:8px;display:block}
+.polaroid span{
+    display:block;text-align:center;font-size:.72rem;letter-spacing:1px;
+    color:var(--accent);margin-top:8px;font-weight:700
+}
+.pol-1{--swing:6s; top:-90px; left:6%;  transform:rotate(-12deg)}
+.pol-2{--swing:7s; top:-70px; right:8%; transform:rotate(10deg)}
+.pol-3{--swing:5.5s;top:-100px;left:44%; transform:rotate(-5deg)}
+.pol-4{--swing:8s; top:-80px; right:30%;transform:rotate(14deg)}
+
+@keyframes swing{
+    0%{transform:rotate(-14deg)}
+    100%{transform:rotate(14deg)}
+}
+
+/* ============================================================
+   LOGIN CARD
+   ============================================================ */
+.login-wrap{
+    position:relative;
+    z-index:5;
+    width:100%;
+    max-width:430px;
+    padding:20px;
+}
+
+.login-card{
+    position:relative;
+    background:linear-gradient(160deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02));
+    border:1px solid rgba(255,255,255,0.10);
+    border-radius:22px;
+    padding:0;
+    overflow:hidden;
+    backdrop-filter:blur(18px) saturate(140%);
+    -webkit-backdrop-filter:blur(18px) saturate(140%);
+    box-shadow:
+        0 30px 80px rgba(0,0,0,0.6),
+        inset 0 1px 0 rgba(255,255,255,0.08),
+        0 0 60px rgba(120,100,255,0.12);
+    animation:cardIn .8s var(--ease) both;
+}
+@keyframes cardIn{
+    0%{opacity:0;transform:translateY(40px) scale(.96)}
+    100%{opacity:1;transform:translateY(0) scale(1)}
+}
+
+/* ===== School photo header ===== */
+.school-photo{
+    position:relative;
+    height:220px;
+    overflow:hidden;
+    display:flex;
+    align-items:flex-end;
+}
+.school-photo img{
+    position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+    filter:saturate(1.1) contrast(1.05);
+}
+.school-photo::before{
+    content:"";
+    position:absolute;inset:0;
+    background:linear-gradient(180deg, rgba(6,7,11,0.15), rgba(6,7,11,0.95));
+}
+.school-photo-ring{
+    position:absolute;top:-40px;right:-40px;
+    width:180px;height:180px;border-radius:50%;
+    background:conic-gradient(from 0deg, var(--accent), var(--accent-2), #ffb3c1, var(--accent));
+    opacity:.5;filter:blur(40px);
+    animation:pulseRing 4s var(--ease) infinite;
+}
+@keyframes pulseRing{
+    0%,100%{transform:scale(1);opacity:.4}
+    50%{transform:scale(1.15);opacity:.7}
+}
+.school-badge{
+    position:absolute;top:14px;left:14px;
+    font-size:1.4rem;
+    background:rgba(6,7,11,0.6);
+    border:1px solid rgba(255,255,255,0.15);
+    border-radius:12px;padding:6px 10px;
+    backdrop-filter:blur(6px);
+}
+.school-caption{
+    position:relative;z-index:2;padding:18px 22px;
+}
+.school-caption h1{
+    font-size:1.5rem;letter-spacing:.6px;
+    background:linear-gradient(90deg, var(--accent), var(--accent-2), var(--accent));
+    background-size:220% auto;
+    -webkit-background-clip:text;background-clip:text;
+    -webkit-text-fill-color:transparent;color:transparent;
+    animation:shimmerText 6s linear infinite;
+    filter:drop-shadow(0 0 16px rgba(140,120,255,0.45));
+}
+@keyframes shimmerText{to{background-position:220% center}}
+.school-caption p{color:var(--muted);font-size:.85rem;margin-top:2px}
+
+/* ===== Form ===== */
+.login-form{padding:24px 26px 28px}
+.form-title{
+    font-size:1.3rem;font-weight:650;color:#fff;
+    margin-bottom:4px;letter-spacing:.3px;
+}
+.form-sub{color:var(--muted);font-size:.88rem;margin-bottom:20px}
+
+.field{margin-bottom:16px;position:relative}
+.field label{
+    display:block;font-size:.78rem;font-weight:600;color:#dfe6ee;
+    margin-bottom:7px;letter-spacing:.4px;text-transform:uppercase
+}
+.input-wrap{
+    position:relative;display:flex;align-items:center;
+}
+.input-wrap .input-icon{
+    position:absolute;left:14px;font-size:1rem;opacity:.75;
+    transition:transform .2s var(--ease);
+}
+.input-wrap input{
+    width:100%;
+    background:rgba(10,14,22,0.6);
+    border:1px solid rgba(255,255,255,0.10);
+    border-radius:12px;
+    padding:13px 14px 13px 42px;
+    color:#fff;font-size:.95rem;
+    outline:none;
+    transition:border-color .25s, box-shadow .25s, background .25s;
+}
+.input-wrap input::placeholder{color:#6b7688}
+.input-wrap input:focus{
+    border-color:var(--accent);
+    background:rgba(14,18,28,0.8);
+    box-shadow:0 0 0 3px rgba(140,120,255,0.18), 0 0 20px rgba(120,100,255,0.2);
+}
+.input-wrap:focus-within .input-icon{transform:scale(1.18);opacity:1;color:var(--accent-2)}
+
+.toggle-pass{
+    position:absolute;right:10px;background:none;border:none;cursor:pointer;
+    font-size:1rem;opacity:.7;padding:6px;transition:opacity .2s, transform .2s;
+}
+.toggle-pass:hover{opacity:1;transform:scale(1.1)}
+
+.form-options{
+    display:flex;align-items:center;justify-content:space-between;
+    margin:6px 0 18px;font-size:.82rem;
+}
+.remember{display:flex;align-items:center;gap:6px;color:var(--muted);cursor:pointer}
+.remember input{accent-color:var(--accent);width:15px;height:15px;cursor:pointer}
+.forgot-link{color:var(--accent-2);text-decoration:none;font-weight:600}
+.forgot-link:hover{text-decoration:underline}
+
+/* Login button */
+.btn-login{
+    position:relative;width:100%;padding:14px;
+    border:none;border-radius:12px;cursor:pointer;
+    font-size:1rem;font-weight:700;letter-spacing:.5px;color:#0a0d14;
+    background:linear-gradient(90deg, var(--accent), var(--accent-2));
+    overflow:hidden;
+    transition:transform .2s var(--ease), box-shadow .25s;
+    box-shadow:0 10px 30px rgba(120,100,255,0.3);
+}
+.btn-login:hover{transform:translateY(-2px);box-shadow:0 16px 40px rgba(120,100,255,0.45)}
+.btn-login:active{transform:translateY(0) scale(.98)}
+.btn-login::after{
+    content:"";position:absolute;top:0;left:-120%;width:100%;height:100%;
+    background:linear-gradient(120deg, transparent, rgba(255,255,255,0.5), transparent);
+    animation:shine 3s var(--ease) infinite;
+}
+@keyframes shine{0%{left:-120%}60%,100%{left:120%}}
+
+/* Loading spinner */
+.btn-loader{
+    display:none;width:20px;height:20px;border-radius:50%;
+    border:3px solid rgba(10,13,20,0.3);border-top-color:#0a0d14;
+    animation:spin .7s linear infinite;margin:0 auto;
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+.btn-login.loading .btn-text{display:none}
+.btn-login.loading .btn-loader{display:block}
+
+.login-error{
+    margin-top:14px;text-align:center;font-size:.85rem;color:#ff8095;
+    min-height:1.2em;opacity:0;transition:opacity .3s;
+}
+.login-error.show{opacity:1}
+
+/* Shake animation on error */
+.login-form.shake{
+    animation:shake .5s var(--ease);
+}
+@keyframes shake{
+    0%,100%{transform:translateX(0)}
+    20%{transform:translateX(-10px)}
+    40%{transform:translateX(10px)}
+    60%{transform:translateX(-7px)}
+    80%{transform:translateX(7px)}
+}
+
+/* ===== Destination chooser ===== */
+.destination{
+    display:none;padding:26px;text-align:center;
+    animation:destIn .6s var(--ease) both;
+}
+@keyframes destIn{0%{opacity:0;transform:scale(.9)}100%{opacity:1;transform:scale(1)}}
+.dest-check{font-size:2.4rem;animation:bounce 1.2s var(--ease) infinite}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+.dest-header h2{font-size:1.3rem;color:#fff;margin:8px 0 4px}
+.dest-header p{color:var(--muted);font-size:.9rem}
+.dest-header .dest-hint{margin-top:14px;font-size:.85rem;color:#dfe6ee}
+
+.dest-actions{display:flex;gap:14px;margin:22px 0}
+.dest-btn{
+    flex:1;text-decoration:none;color:#fff;
+    background:rgba(255,255,255,0.05);
+    border:1px solid rgba(255,255,255,0.12);
+    border-radius:14px;padding:18px 10px;
+    display:flex;flex-direction:column;align-items:center;gap:8px;
+    transition:transform .25s var(--ease), border-color .25s, box-shadow .25s, background .25s;
+}
+.dest-btn:hover{transform:translateY(-4px);border-color:rgba(207,199,255,0.4);box-shadow:0 14px 34px rgba(0,0,0,0.45)}
+.dest-about:hover{background:rgba(102,110,255,0.12)}
+.dest-biodata:hover{background:rgba(102,240,214,0.10)}
+.dest-icon{font-size:2rem}
+.dest-label{font-weight:700;letter-spacing:.3px}
+.dest-desc{font-size:.72rem;color:var(--muted)}
+
+.btn-logout{
+    margin-top:6px;width:100%;padding:11px;border-radius:10px;
+    background:none;border:1px solid rgba(255,255,255,0.15);color:var(--muted);
+    cursor:pointer;font-size:.85rem;transition:all .2s;
+}
+.btn-logout:hover{background:rgba(255,255,255,0.06);color:#fff}
+
+/* ============================================================
+   AUDIO WIDGET
+   ============================================================
+*/
+.audio-widget{
+    position:fixed;bottom:18px;right:18px;z-index:10005;
+    background:rgba(10,14,22,0.94);
+    border:1px solid rgba(255,255,255,0.14);
+    border-radius:18px;
+    padding:10px 12px;
+    backdrop-filter:blur(12px);
+    box-shadow:0 22px 48px rgba(0,0,0,0.45);
+}
+.audio-widget audio{
+    width:240px;
+    max-width:calc(100vw - 40px);
+    display:block;
+}
+@media (max-width:520px){
+    .audio-widget{right:12px;left:12px;bottom:12px;}
+}
+
+/* ============================================================
+   PAGE TRANSITION
+   ============================================================ */
+.page-fade{
+    position:fixed;inset:0;z-index:9999;opacity:0;pointer-events:none;
+    background:linear-gradient(180deg, rgba(6,7,11,0.9), rgba(6,7,11,0.98));
+    transition:opacity .5s ease;
+}
+.page-fade.active{opacity:1;pointer-events:auto}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width:520px){
+    .login-wrap{padding:12px}
+    .school-photo{height:160px}
+    .login-form{padding:20px}
+    .dest-actions{flex-direction:column}
+    .polaroid{display:none}
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion:reduce){
+    *{animation-duration:.001ms !important;animation-iteration-count:1 !important;transition-duration:.001ms !important}
+    body::before,body::after{animation:none}
+}

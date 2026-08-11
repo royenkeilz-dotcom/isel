@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Login — SMKN 1 Katapang</title>
+	<link rel="stylesheet" href="../css/login.css">
+</head>
+<body>
+
+	<!-- ===== Multimedia floating icons (camera, film, photos) ===== -->
+	<div class="float-stage" aria-hidden="true">
+		<div class="float-icon fi-1">📹</div>
+		<div class="float-icon fi-2">🎬</div>
+		<div class="float-icon fi-3">📷</div>
+		<div class="float-icon fi-4">🎞️</div>
+		<div class="float-icon fi-5">🎥</div>
+		<div class="float-icon fi-6">🖼️</div>
+		<!-- hanging polaroid photos -->
+		<div class="polaroid pol-1"><img src="../picture/school1.svg" alt="foto 1"><span>LIPUTAN</span></div>
+		<div class="polaroid pol-2"><img src="../picture/school2.svg" alt="foto 2"><span>PRODUKSI</span></div>
+		<div class="polaroid pol-3"><img src="../picture/school3.svg" alt="foto 3"><span>STUDIO</span></div>
+		<div class="polaroid pol-4"><img src="../picture/school4.svg" alt="foto 4"><span>ACARA</span></div>
+	</div>
+
+	<!-- ===== Vignette overlay ===== -->
+	<div class="vignette"></div>
+
+	<!-- ===== Login card ===== -->
+	<main class="login-wrap">
+		<section class="login-card" id="loginCard">
+
+			<!-- School photo header -->
+			<div class="school-photo">
+				<div class="school-photo-ring"></div>
+				<img src="../picture/background.jpg" alt="SMKN 1 Katapang" class="school-img">
+				<div class="school-badge">🎓</div>
+				<div class="school-caption">
+						<h1 class="school-title">SMKN 1 Katapang</h1>
+						<p>Portal siswa jurusan Broadcasting &amp; Perfilman</p>
+				</div>
+			</div>
+
+			<!-- Login form -->
+			<form id="loginForm" class="login-form" autocomplete="off">
+				<h2 class="form-title">Selamat Datang 👋</h2>
+				<p class="form-sub">SILAHKAN MASUK YAHH</p>
+
+				<div class="field">
+					<label for="username">Username</label>
+					<div class="input-wrap">
+						<span class="input-icon">👤</span>
+						<input type="text" id="username" name="username" placeholder="Masukkan username (contoh: isel)" required>
+						<span class="input-focus"></span>
+					</div>
+				</div>
+
+				<div class="field">
+					<label for="password">Password</label>
+					<div class="input-wrap">
+						<span class="input-icon">🔒</span>
+						<input type="password" id="password" name="password" placeholder="Masukkan password (contoh: isel galak)" required>
+						<button type="button" class="toggle-pass" id="togglePass" aria-label="Tampilkan password">👁️</button>
+						<span class="input-focus"></span>
+					</div>
+				</div>
+
+				<div class="form-options">
+					<label class="remember"><input type="checkbox" id="remember"> Ingat saya</label>
+					<a href="#" class="forgot-link">Lupa password?</a>
+				</div>
+
+				<button type="submit" class="btn-login" id="btnLogin">
+					<span class="btn-text">Masuk</span>
+					<span class="btn-loader"></span>
+				</button>
+
+				<div class="login-error" id="loginError"></div>
+			</form>
+
+			<!-- Destination chooser (shown after login) -->
+			<div class="destination" id="destination">
+				<div class="dest-header">
+					<div class="dest-check">✅</div>
+					<h2>Login Berhasil!</h2>
+					<p>Selamat datang, <strong id="welcomeName">Siswa</strong> 🎬</p>
+					<p class="dest-hint">Pilih halaman yang ingin Anda tuju:</p>
+				</div>
+				<div class="dest-actions">
+					<a href="about.html" class="dest-btn dest-about">
+						<span class="dest-icon">📖</span>
+						<span class="dest-label">Tentang</span>
+						<span class="dest-desc">Profil &amp; sekolah</span>
+					</a>
+					<a href="biodata.html" class="dest-btn dest-biodata">
+						<span class="dest-icon">👩‍🎓</span>
+						<span class="dest-label">Biodata</span>
+						<span class="dest-desc">Data pribadi siswa</span>
+					</a>
+				</div>
+				<button class="btn-logout" id="btnLogout">Keluar</button>
+			</div>
+
+		</section>
+	</main>
+
+	<div class="audio-widget">
+		<audio id="bg-audio" preload="metadata" loop controls>
+			<source src="../audio/bg-music.mp3" type="audio/mpeg">
+			Audio tidak didukung.
+		</audio>
+	</div>
+
+	<!-- Page transition fade -->
+	<div class="page-fade" id="pageFade"></div>
+
+	<script src="../js/login.js"></script>
+</body>
+</html>
